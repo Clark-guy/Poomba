@@ -10,7 +10,16 @@ Current TODO
       - pi zero 2 W
       - USB Micro to USB A cable
       - pin headers?
-      - camera adapter
  - write out controls in the flask app so the buttons can be used to move the roomba around
  - alternative buttons that just let the roomba control itself
- - camera functionality?
+ - Camera mount
+  - Ace hardware or something? Need just some basic brackets or something\
+  - Legos are not off the table
+  - just like.. bent aluminum? Or other metal... 
+  - Wood? I dunno
+
+
+Installs:
+ - flask
+ - picamera2
+ - serial
