@@ -131,36 +131,45 @@ def sing():
 
     return "", 204
 
+@app.route("/forward/start", methods=["POST"])
+def forward_start():
+    ser.write(bytes([145,0x00,0x64,0x00,0x64]))
+    return "", 204
+
+@app.route("/forward/stop", methods=["POST"])
+def forward_stop():
+    ser.write(bytes([145,0x00,0x00,0x00,0x00]))
+    return "", 204
 
 @app.route("/forward", methods=["POST"])
 def forward():
-    ser.write(bytes([145,00010000,00000000,00010000,00000000]))
+    ser.write(bytes([145,0x00,0x64,0x00,0x64]))
     time.sleep(2)
-    ser.write(bytes([145,00000000,00000000,00000000,00000000]))
+    ser.write(bytes([145,0x00,0x00,0x00,0x00]))
     time.sleep(2)
     return "", 204
 
 @app.route("/backwards", methods=["POST"])
 def backwards():
-    ser.write(bytes([145,11110000,00000000,11110000,00000000]))
+    ser.write(bytes([145,0x00,0x64,0x00,0x64]))
     time.sleep(2)
-    ser.write(bytes([145,00000000,00000000,00000000,00000000]))
+    ser.write(bytes([145,0x00,0x00,0x00,0x00]))
     time.sleep(2)
     return "", 204
 
 @app.route("/left", methods=["POST"])
 def left():
-    ser.write(bytes([145,11110000,00000000,00010000,00000000]))
+    ser.write(bytes([145,0x00,0x64,0x00,0x00]))
     time.sleep(1)
-    ser.write(bytes([145,00000000,00000000,00000000,00000000]))
+    ser.write(bytes([145,0x00,0x00,0x00,0x00]))
     time.sleep(2)
     return "", 204
 
 @app.route("/right", methods=["POST"])
 def right():
-    ser.write(bytes([145,00010000,00000000,11110000,00000000]))
+    ser.write(bytes([145,0x00,0x00,0x00,0x64]))
     time.sleep(1)
-    ser.write(bytes([145,00000000,00000000,00000000,00000000]))
+    ser.write(bytes([145,0x00,0x00,0x00,0x00]))
     time.sleep(2)
     return "", 204
 
