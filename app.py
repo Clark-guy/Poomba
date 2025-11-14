@@ -61,6 +61,7 @@ def hello_world():
   <div>
     <button onclick="sendCommand()">Send Serial</button>
     <button onclick="goForward()">Go Forward</button>
+    <button onmousedown="holdForward()" onmouseup="stop()">Hold Forward</button>
     <button onclick="goBackwards()">Go Backwards</button>
     <button onclick="turnLeft()">Turn Left</button>
     <button onclick="turnRight()">Turn Right</button>
@@ -85,6 +86,12 @@ def hello_world():
 
   function goForward() {
     fetch("/forward", { method: "POST" });
+  }
+  function holdForward() {
+    fetch("/forward/start", { method: "POST" });
+  }
+  function stop() {
+    fetch("/stop", { method: "POST" });
   }
   function goBackwards() {
     fetch("/backwards", { method: "POST" });
@@ -116,8 +123,11 @@ def dock():
 def reset():
     ser.write(bytes([7]))
     print('resetting')
-    time.sleep(1)
+    time.sleep(3)
     ser.write(bytes([128]))
+    time.sleep(0.1)
+    ser.write(bytes([131]))
+    time.sleep(0.1)
     return "", 204
 
 
@@ -136,7 +146,7 @@ def forward_start():
     ser.write(bytes([145,0x00,0x64,0x00,0x64]))
     return "", 204
 
-@app.route("/forward/stop", methods=["POST"])
+@app.route("/stop", methods=["POST"])
 def forward_stop():
     ser.write(bytes([145,0x00,0x00,0x00,0x00]))
     return "", 204
@@ -151,7 +161,7 @@ def forward():
 
 @app.route("/backwards", methods=["POST"])
 def backwards():
-    ser.write(bytes([145,0x00,0x64,0x00,0x64]))
+    ser.write(bytes([145,0xFF,0x9C,0xFF,0x9C]))
     time.sleep(2)
     ser.write(bytes([145,0x00,0x00,0x00,0x00]))
     time.sleep(2)
