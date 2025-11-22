@@ -21,5 +21,14 @@ Current TODO
 
 Installs:
  - flask
- - picamera2
+ - picamera2 - apt-get
+ - python3-opencv - apt-get
  - serial
+
+To install - generate a new python venv with python -m venv venv
+switch to the venv with . ./venv/bin/activate
+install requirements with pip install -r requirements.txt
+
+sudo apt install -y python3-dev ffmpeg libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libswresample-dev libavfilter-dev
+
+installed python3-picamera2 with apt instead of pip because pip was giving me shit
